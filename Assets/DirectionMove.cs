@@ -30,6 +30,11 @@ public class DirectionMove : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        int i = 1;
+        foreach (var item in animator.runtimeAnimatorController.animationClips)
+        {
+            animationLength[item.name] = item.length;
+        }
     }
     Dictionary<string, float> animationLength = null;
     void Update()

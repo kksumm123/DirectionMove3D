@@ -1451,7 +1451,7 @@ Animator:
   m_GameObject: {fileID: 5551505842782507922}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9035850883732af4daf57c888e1fefce, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d147f3645b504e74280c98cb4d49a534, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1473,7 +1473,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  lerpValue: 0.05
+  lastMoveDir: {x: 0, y: 0, z: 0}
+  rotateLerp: 0.05
+  state: 0
 --- !u!1 &5923064218638621557
 GameObject:
   m_ObjectHideFlags: 0
