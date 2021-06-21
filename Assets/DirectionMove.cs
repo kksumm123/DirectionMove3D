@@ -10,20 +10,39 @@ public class DirectionMove : MonoBehaviour
     [SerializeField] Vector3 lastMoveDir;
     [SerializeField] float rotateLerp = 0.05f;
 
-    [SerializeField] StateType state;
 
+
+    [SerializeField] StateType state;
     StateType State
     {
         get { return state; }
         set { state = value; }
+    }
+    enum StateType
+    {
+        Idle,
+        Run,
+        Jump,
+        Attack
     }
     void Start()
     {
         animator = GetComponent<Animator>();
 
     }
-    Vector3 move;
     void Update()
+    {
+        Move();
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            State = StateType.Attack;
+            animator.Play("Attack", 1);
+        }
+    }
+
+    Vector3 move;
+    private void Move()
     {
         move = Vector3.zero;
         if (Input.GetKey(KeyCode.A))
@@ -51,11 +70,4 @@ public class DirectionMove : MonoBehaviour
         transform.forward = Vector3.Slerp(transform.forward, lastMoveDir, rotateLerp);
     }
 
-    enum StateType
-    {
-        Idle,
-        Run,
-        Jump,
-        Attack
-    }
 }
