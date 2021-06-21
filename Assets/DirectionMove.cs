@@ -17,7 +17,17 @@ public class DirectionMove : MonoBehaviour
     StateType State
     {
         get { return state; }
-        set { state = value; }
+        set
+        {
+            if (state == value)
+                return;
+
+            state = value;
+
+            var animationInfo = blendingInfos.Find(x => x.state == state);
+            if (animationInfo != null)
+                animator.CrossFade(animationInfo.clipName, animationInfo.time);
+        }
     }
     enum StateType
     {
@@ -60,6 +70,7 @@ public class DirectionMove : MonoBehaviour
             if (move != Vector3.zero)
             {
                 State = StateType.Run;
+                //var animationInfo = blendingInfos.Find(x => x.state == StateType;
                 animator.Play("Run");
                 move.Normalize();
                 transform.Translate(move * speed * Time.deltaTime, Space.World);
@@ -97,7 +108,7 @@ public class DirectionMove : MonoBehaviour
             //float attackAnimationTime = animationLength["Attack"];
             //yield return new WaitForSeconds(attackAnimationTime);
             yield return null;
-            
+
             var stateinfo = animator.GetCurrentAnimatorStateInfo(0);
             var delay = stateinfo.length * attackAnimationWaitTimeRate;
             yield return new WaitForSeconds(delay);
@@ -105,5 +116,12 @@ public class DirectionMove : MonoBehaviour
             State = StateType.None;
         }
     }
-
+    [SerializeField] List<BlendingInfo> blendingInfos;
+    [Serializable]
+    class BlendingInfo
+    {
+        public StateType state;
+        public string clipName;
+        public float time;
+    }
 }
