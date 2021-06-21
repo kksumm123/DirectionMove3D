@@ -1476,6 +1476,7 @@ MonoBehaviour:
   lastMoveDir: {x: 0, y: 0, z: 0}
   rotateLerp: 0.05
   state: 0
+  attackAnimationWaitTimeRate: 0.7
 --- !u!1 &5923064218638621557
 GameObject:
   m_ObjectHideFlags: 0

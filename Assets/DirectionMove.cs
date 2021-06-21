@@ -31,7 +31,6 @@ public class DirectionMove : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        int i = 1;
         foreach (var item in animator.runtimeAnimatorController.animationClips)
         {
             animationLength[item.name] = item.length;
@@ -76,6 +75,7 @@ public class DirectionMove : MonoBehaviour
 
         transform.forward = Vector3.Slerp(transform.forward, lastMoveDir, rotateLerp);
     }
+    [SerializeField] float attackAnimationWaitTimeRate = 0.7f;
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
@@ -89,12 +89,19 @@ public class DirectionMove : MonoBehaviour
             // 어택이 끝나면 State = None
             StartCoroutine(AttackCo());
         }
+
         IEnumerator AttackCo()
         {
             State = StateType.Attack;
             animator.Play("Attack");
-            float attackAnimationTime = animationLength["Attack"];
-            yield return new WaitForSeconds(attackAnimationTime);
+            //float attackAnimationTime = animationLength["Attack"];
+            //yield return new WaitForSeconds(attackAnimationTime);
+            yield return null;
+            
+            var stateinfo = animator.GetCurrentAnimatorStateInfo(0);
+            var delay = stateinfo.length * attackAnimationWaitTimeRate;
+            yield return new WaitForSeconds(delay);
+
             State = StateType.None;
         }
     }
