@@ -306,10 +306,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2124296101290175521, guid: 835ab4ba28554bb4eaa4d5c7355144d2, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d147f3645b504e74280c98cb4d49a534, type: 2}
     - target: {fileID: 5551505842782507922, guid: 835ab4ba28554bb4eaa4d5c7355144d2, type: 3}
       propertyPath: m_Name
       value: SwordWarrior

@@ -27,6 +27,7 @@ public class DirectionMove : MonoBehaviour
         Attack,
         None
     }
+    Dictionary<string, float> animationLength = new Dictionary<string, float>();
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -36,7 +37,6 @@ public class DirectionMove : MonoBehaviour
             animationLength[item.name] = item.length;
         }
     }
-    Dictionary<string, float> animationLength = null;
     void Update()
     {
         Move();
