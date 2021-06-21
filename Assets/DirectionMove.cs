@@ -23,8 +23,10 @@ public class DirectionMove : MonoBehaviour
             move.z = 1;
         if (Input.GetKey(KeyCode.S))
             move.z = -1;
-        move.Normalize();
-        transform.Translate(move * speed * Time.deltaTime, Space.World);
-
+        if (move != Vector3.zero)
+        {
+            move.Normalize();
+            transform.Translate(move * speed * Time.deltaTime, Space.World);
+        }
     }
 }
