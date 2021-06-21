@@ -11,40 +11,11 @@ public class DirectionMove : MonoBehaviour
     [SerializeField] Vector3 lastMoveDir;
     [SerializeField] float rotateLerp = 0.05f;
 
-
-
     [SerializeField] StateType state;
-    StateType State
-    {
-        get { return state; }
-        set
-        {
-            if (state == value)
-                return;
-
-            state = value;
-
-            var animationInfo = blendingInfos.Find(x => x.state == state);
-            if (animationInfo != null)
-                animator.CrossFade(animationInfo.clipName, animationInfo.time);
-        }
-    }
-    enum StateType
-    {
-        Idle,
-        Run,
-        Jump,
-        Attack,
-        None
-    }
-    Dictionary<string, float> animationLength = new Dictionary<string, float>();
+    
     void Start()
     {
         animator = GetComponent<Animator>();
-        foreach (var item in animator.runtimeAnimatorController.animationClips)
-        {
-            animationLength[item.name] = item.length;
-        }
     }
     void Update()
     {
@@ -115,6 +86,30 @@ public class DirectionMove : MonoBehaviour
 
             State = StateType.None;
         }
+    }
+
+    StateType State
+    {
+        get { return state; }
+        set
+        {
+            if (state == value)
+                return;
+
+            state = value;
+
+            var animationInfo = blendingInfos.Find(x => x.state == state);
+            if (animationInfo != null)
+                animator.CrossFade(animationInfo.clipName, animationInfo.time);
+        }
+    }
+    enum StateType
+    {
+        Idle,
+        Run,
+        Jump,
+        Attack,
+        None
     }
     [SerializeField] List<BlendingInfo> blendingInfos;
     [Serializable]
