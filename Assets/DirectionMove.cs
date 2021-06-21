@@ -7,9 +7,11 @@ public class DirectionMove : MonoBehaviour
     Animator animator;
 
     [SerializeField] float speed = 5f;
-    [SerializeField] float lerpValue = 0.05f;
+    [SerializeField] Vector3 lastMoveDir;
+    [SerializeField] float rotateLerp = 0.05f;
 
     [SerializeField] StateType state;
+
     StateType State
     {
         get { return state; }
@@ -20,10 +22,10 @@ public class DirectionMove : MonoBehaviour
         animator = GetComponent<Animator>();
 
     }
-
+    Vector3 move;
     void Update()
     {
-        Vector3 move = Vector3.zero;
+        move = Vector3.zero;
         if (Input.GetKey(KeyCode.A))
             move.x = -1;
         if (Input.GetKey(KeyCode.D))
@@ -39,14 +41,14 @@ public class DirectionMove : MonoBehaviour
             move.Normalize();
             transform.Translate(move * speed * Time.deltaTime, Space.World);
 
-            //transform.forward = move;
-            transform.forward = Vector3.Slerp(transform.forward, move, lerpValue);
+            lastMoveDir = move;
         }
         else
         {
             State = StateType.Idle;
             animator.Play("Idle");
         }
+        transform.forward = Vector3.Slerp(transform.forward, lastMoveDir, rotateLerp);
     }
 
     enum StateType
